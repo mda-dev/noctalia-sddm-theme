@@ -75,8 +75,8 @@ Rectangle {
 
     Connections {
         function onLoginFailed() {
-            passwordFiled.text = "";
-            errorMessage.text = "Authentication failed";
+            passwordField.text = "";
+            errorMessage.text = "Authentication failed!";
         }
 
         target: sddm
