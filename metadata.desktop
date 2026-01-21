@@ -1,0 +1,12 @@
+[SddmGreeterTheme]
+Name=Noctalia
+Description=Noctalia SDDM Theme
+Author=Marian D. Adamache
+Copyright=(c)
+License=MIT
+Type=greeter
+Version=1.0
+MainScript=Main.qml
+ConfigFile=theme.conf
+Theme-Id=noctalia
+Theme-API=2.0

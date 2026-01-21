@@ -1,0 +1,8 @@
+module Noctalia
+
+# Singleton
+singleton Global 1.0 Globals.qml
+
+# Cards
+CardBottom 1.0 Components/CardBottom.qml
+CardTop 1.0 Components/CardTop.qml
