@@ -48,11 +48,11 @@ Rectangle {
             font.letterSpacing: 5 * Global.scaleFactor
             focus: true
             text: ""
-            onAccepted: sddm.login(userModel.lastUser, passwordBox.text, sessionModel.lastIndex)
+            onAccepted: sddm.login(userModel.lastUser, passwordField.text, sessionModel.lastIndex)
             Layout.fillWidth: true
             Keys.onPressed: {
                 if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
-                    sddm.login(userModel.lastUser, passwordBox.text, sessionModel.lastIndex);
+                    sddm.login(userModel.lastUser, passwordField.text, sessionModel.lastIndex);
                     event.accepted = true;
                 }
             }
@@ -68,6 +68,7 @@ Rectangle {
             borderRadius: Math.max(root.radius - row.anchorMargins, 0)
             Layout.fillHeight: true
             Layout.preferredWidth: iconButton.hovered ? 100 * Global.scaleFactor : root.height - (2 * row.anchorMargins)
+            onClicked: sddm.login(userModel.lastUser, passwordField.text, sessionModel.lastIndex)
         }
 
     }
