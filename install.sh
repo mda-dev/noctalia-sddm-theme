@@ -32,7 +32,7 @@ install_theme() {
   # Create theme dir
   mkdir -p $DEST_DIR
 
-  #copy over SDDM theme files
+  #copy over SDDM theme files and scripts
   cp -ra $ASSET_DIR $DEST_DIR
   cp -r "$SWD/Components" $DEST_DIR
   cp "$SWD/Main.qml" $DEST_DIR
@@ -42,6 +42,7 @@ install_theme() {
   cp "$SWD/theme.conf" $DEST_DIR
   cp "$SWD/theme.template.conf" $DEST_DIR
   cp "$SWD/uninstall.sh" $DEST_DIR
+  cp "$SWD/sync-shell-wallpaper.sh" $DEST_DIR
   # permission needed for noctalia updates
   # via user templates
   chmod 666 "$DEST_DIR/theme.conf"

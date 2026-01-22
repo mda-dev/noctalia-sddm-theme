@@ -22,7 +22,7 @@ and [Noctalia Dev](https://noctalia.dev/)
 - Wallpaper sync with Noctalia-Shell via script `noctalia-shell-sync.sh` (optional)
 - Various customizable settings via `theme.config` or `theme.template.config`
 
-> [!INFO] - Dependancies
+> [!NOTE] - Dependencies
 > `qt5-graphicaleffects` and `qt5-quickcontrols2`
 > Or their equivalent Qt6 counterparts
 
@@ -37,14 +37,21 @@ Clone repo with `git clone https://github.com/mda-dev/noctalia-sddm-theme.git no
 
 <details>
   <summary> Autotomatic (with scripts) </summary>
-  Run the installer script from with the noctalia folder.
+  Run the installer script from within the noctalia folder.
 
 ```sh
 ./install.sh
 ```
 
 You will be prompted during the installation for optional
-Noctalia-Shell integrations ( wallpaper , colors )
+Noctalia-Shell color integration
+
+For wallpaper sync there is no script yet [Manual Install](#wallpaper-sync)
+
+If you install / configure the sync "features" you will need to change
+the color scheme and wallpaper once for changes to take effect.
+
+After you can use the [Test command](#test-theme-installation)
 
 </details>
 
@@ -117,7 +124,7 @@ The place where you can configure some settings changes depending if you enable 
 Open `theme.template.conf` with your favorite editor and change any of the values 
 you see fit and then refresh your theme within Noctalia settings
 
-> [!DANGER]
+> [!CAUTION]
 > Do not change values start with the letter `m` ex `mPrimary`, those are set by Noctalia-Shell
 > whenever you change your theme.
 > The Color-Sync won't work anymore
