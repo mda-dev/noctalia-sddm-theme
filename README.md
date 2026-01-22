@@ -19,7 +19,7 @@ and [Noctalia Dev](https://noctalia.dev/)
   - theme dir : `/usr/share/sddm/themes/noctalia`
   - sddm.conf : `/etc/sddm.conf`
   - shell integration: `~/.config/noctalia/user-templates.toml` (optional)
-- Wallpaper sync with Noctalia-Shell via script `noctalia-shell-sync.sh` (optional)
+- Wallpaper sync with Noctalia-Shell via script `sync-shell-wallpaper.sh` (optional)
 - Various customizable settings via `theme.config` or `theme.template.config`
 
 > [!NOTE] - Dependencies
