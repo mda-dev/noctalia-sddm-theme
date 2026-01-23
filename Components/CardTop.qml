@@ -11,6 +11,8 @@ Rectangle {
     property real cardWidth: 550 * Global.scaleFactor
     property real cardHeight: 120 * Global.scaleFactor
     property real topMarginRatio: 0.095
+    property int userIndex
+    property int userDisplayName
 
     anchors.top: parent.top
     anchors.topMargin: parent.height * topMarginRatio
@@ -19,6 +21,11 @@ Rectangle {
     height: cardHeight
     color: Global.mSurface
     opacity: Global.cardOpacity
+    Component.onCompleted: {
+        console.log("userIndex:" + userIndex);
+        console.log("lastIndex:" + userModel.lastIndex);
+        console.log("userModel:" + name);
+    }
 
     Timer {
         interval: 1000

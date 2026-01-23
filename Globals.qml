@@ -46,6 +46,7 @@ QtObject {
     readonly property color mShadow: config.mShadow || "#070722"
     readonly property color mHover: config.mHover || "#9BFECE"
     readonly property color mOnHover: config.mOnHover || "#0e0e43"
+    readonly property color mDebug: "purple"
     readonly property bool isDarkMode: isDarkColor(mSurface)
 
     function isDarkColor(color) {

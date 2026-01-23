@@ -2,6 +2,11 @@ import QtGraphicalEffects 1.12
 import QtQuick 2.15
 
 Rectangle {
+    // CardTop {
+    //     radius: Global.cardBorderRadius
+    //     opacity: Global.cardOpacity
+    // }
+
     id: root
 
     color: config.mSurfaceVariant
@@ -34,14 +39,12 @@ Rectangle {
         cached: true
     }
 
-    CardTop {
+    CardBottom {
         radius: Global.cardBorderRadius
         opacity: Global.cardOpacity
     }
 
-    CardBottom {
-        radius: Global.cardBorderRadius
-        opacity: Global.cardOpacity
+    UserSelector {
     }
 
 }

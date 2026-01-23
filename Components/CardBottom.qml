@@ -1,4 +1,5 @@
 import ".."
+import QtGraphicalEffects 1.12
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
 
@@ -33,6 +34,16 @@ Rectangle {
             Layout.fillWidth: true
         }
 
+    }
+
+    DropShadow {
+        anchors.fill: loginCard
+        source: loginCard
+        horizontalOffset: 0
+        verticalOffset: 0
+        radius: 16
+        samples: 24
+        color: "#40000000"
     }
 
 }
