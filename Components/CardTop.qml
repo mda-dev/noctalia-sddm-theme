@@ -10,21 +10,21 @@ Rectangle {
     // Layout / scaling
     property real cardWidth: 550 * Global.scaleFactor
     property real cardHeight: 120 * Global.scaleFactor
-    property real topMarginRatio: 0.095
+    property string userName
+    property string userRealName
+    property string userDisplayName
+    property string userIcon
+    property string userHomeDir
     property int userIndex
-    property int userDisplayName
 
     anchors.top: parent.top
-    anchors.topMargin: parent.height * topMarginRatio
     anchors.horizontalCenter: parent.horizontalCenter
     width: Math.max(cardWidth, Math.min(parent.width * 0.7, cardWidth))
     height: cardHeight
     color: Global.mSurface
     opacity: Global.cardOpacity
     Component.onCompleted: {
-        console.log("userIndex:" + userIndex);
-        console.log("lastIndex:" + userModel.lastIndex);
-        console.log("userModel:" + name);
+        headerCard.userDisplayName = userRealName || userName;
     }
 
     Timer {
@@ -46,6 +46,9 @@ Rectangle {
         UserAvatar {
             id: avatar
 
+            user: headerCard.userName
+            userIcon: headerCard.userIcon
+            userHomeDir: headerCard.userHomeDir
             Layout.preferredWidth: 70 * Global.scaleFactor
             Layout.preferredHeight: 70 * Global.scaleFactor
             Layout.alignment: Qt.AlignVCenter
@@ -65,7 +68,7 @@ Rectangle {
 
                 Text {
                     height: 20
-                    text: "Welcome back, " + avatar.displayName + "!"
+                    text: "Welcome back, " + userDisplayName + "!"
                     font.family: Global.font
                     font.pixelSize: Global.fontXXL
                     // font.bold: true

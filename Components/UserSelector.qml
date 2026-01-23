@@ -9,38 +9,28 @@ Item {
     id: root
 
     property int currentIndex: userModel.lastIndex
-    property int visibleCount: 5 // should be odd
-    property real spacing: 20
+    property string currentUser: userModel.lastUser
+    property int visibleCount: 3 // should be odd
+    property real spacing: 20 * Global.scaleFactor
     property real scaleStep: 0.12
     readonly property int animationDuration: 220
+
+    signal selectedUser(int userIndex)
 
     function clampIndex(i) {
         return Math.max(0, Math.min(userModel.count - 1, i));
     }
 
     function move(delta) {
-        console.log(userModel.count);
         currentIndex = clampIndex(currentIndex + delta);
+        selectedUser(currentIndex);
     }
 
     Keys.onUpPressed: move(-1)
     Keys.onDownPressed: move(1)
-    width: 550
-    height: 250
     anchors.top: parent.top
     anchors.topMargin: 24 * Global.scaleFactor
     anchors.horizontalCenter: parent.horizontalCenter
-
-    ListModel {
-        id: pickerModel
-
-        Component.onCompleted: {
-            for (let i = 1; i <= 3; i++) append({
-                "text": "Jimmeh" + i
-            })
-        }
-    }
-    // Up Button
 
     Button {
         id: upBtn
@@ -111,7 +101,7 @@ Item {
         anchors {
             top: parent.top
             bottom: parent.bottom
-            margins: 40
+            margins: 40 * Global.scaleFactor
         }
 
         Repeater {
@@ -124,14 +114,11 @@ Item {
                 property int offset: index - currentIndex
 
                 width: wheel.width
-                height: 120
+                height: 120 * Global.scaleFactor
                 y: wheel.height / 2 + offset * spacing - height / 2
                 scale: 1 - Math.min(Math.abs(offset), visibleCount / 2) * scaleStep
                 z: 100 - Math.abs(offset)
                 visible: Math.abs(offset) <= visibleCount / 2 ? true : false
-                Component.onCompleted: {
-                    console.log(name, realName, icon);
-                }
 
                 CardTop {
                     id: userCard
@@ -144,6 +131,10 @@ Item {
                     visible: offset === 0 ? true : wheel.controlsVisible
                     color: offset === 0 ? Global.mSurface : Global.mPrimary
                     userIndex: index
+                    userName: name
+                    userRealName: realName
+                    userIcon: icon
+                    userHomeDir: homeDir
                 }
 
                 DropShadow {
@@ -151,7 +142,7 @@ Item {
                     source: userCard
                     horizontalOffset: 0
                     verticalOffset: 0
-                    radius: 20
+                    radius: 20 * Global.scaleFactor
                     samples: 24
                     color: "#40000000"
                     visible: offset === 0 ? true : wheel.controlsVisible

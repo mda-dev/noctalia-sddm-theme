@@ -10,6 +10,7 @@ Rectangle {
     // property real marginRatio: 0.07
     readonly property real cardWidth: 750 * Global.scaleFactor
     readonly property real cardHeight: 160 * Global.scaleFactor
+    property int userIndex
 
     anchors.bottom: parent.bottom
     anchors.bottomMargin: parent.height * marginRatio
@@ -28,6 +29,7 @@ Rectangle {
 
         PasswordField {
             Layout.fillWidth: true
+            userIndex: loginCard.userIndex
         }
 
         LoginControls {

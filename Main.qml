@@ -2,12 +2,11 @@ import QtGraphicalEffects 1.12
 import QtQuick 2.15
 
 Rectangle {
-    // CardTop {
-    //     radius: Global.cardBorderRadius
-    //     opacity: Global.cardOpacity
-    // }
-
     id: root
+
+    function setSelectedUser(user) {
+        root.selectedUser = user;
+    }
 
     color: config.mSurfaceVariant
     LayoutMirroring.enabled: Qt.locale().textDirection == Qt.RightToLeft
@@ -39,12 +38,22 @@ Rectangle {
         cached: true
     }
 
-    CardBottom {
-        radius: Global.cardBorderRadius
-        opacity: Global.cardOpacity
+    UserSelector {
+        id: userSelector
+
+        width: 550 * Global.scaleFactor
+        height: 250 * Global.scaleFactor
+        onSelectedUser: function(currUserIndex) {
+            bottomCard.userIndex = currUserIndex;
+        }
     }
 
-    UserSelector {
+    CardBottom {
+        id: bottomCard
+
+        userIndex: userModel.lastIndex
+        radius: Global.cardBorderRadius
+        opacity: Global.cardOpacity
     }
 
 }
