@@ -5,7 +5,7 @@ import QtQuick.Layouts 1.15
 
 Rectangle {
     // ========= Public API =========
-    id: headerCard
+    id: userCard
 
     // Layout / scaling
     property real cardWidth: 550 * Global.scaleFactor
@@ -16,6 +16,7 @@ Rectangle {
     property string userIcon
     property string userHomeDir
     property int userIndex
+    property bool isActive
 
     anchors.top: parent.top
     anchors.horizontalCenter: parent.horizontalCenter
@@ -24,17 +25,7 @@ Rectangle {
     color: Global.mSurface
     opacity: Global.cardOpacity
     Component.onCompleted: {
-        headerCard.userDisplayName = userRealName || userName;
-    }
-
-    Timer {
-        interval: 1000
-        running: true
-        repeat: true
-        onTriggered: {
-            clock.currentTime = new Date();
-            clock.value = clock.currentTime.getSeconds();
-        }
+        userCard.userDisplayName = userRealName || userName;
     }
 
     RowLayout {
@@ -43,15 +34,20 @@ Rectangle {
         spacing: 16 * Global.scaleFactor
 
         // ========= Avatar =========
-        UserAvatar {
-            id: avatar
+        Loader {
+            active: isActive
 
-            user: headerCard.userName
-            userIcon: headerCard.userIcon
-            userHomeDir: headerCard.userHomeDir
-            Layout.preferredWidth: 70 * Global.scaleFactor
-            Layout.preferredHeight: 70 * Global.scaleFactor
-            Layout.alignment: Qt.AlignVCenter
+            sourceComponent: UserAvatar {
+                id: avatar
+
+                user: userCard.userName
+                userIcon: userCard.userIcon
+                userHomeDir: userCard.userHomeDir
+                Layout.preferredWidth: 70 * Global.scaleFactor
+                Layout.preferredHeight: 70 * Global.scaleFactor
+                Layout.alignment: Qt.AlignVCenter
+            }
+
         }
 
         // ========= Text =========
@@ -92,14 +88,41 @@ Rectangle {
 
         }
 
-        Clock {
-            id: clock
-
-            value: new Date().getSeconds()
-            Layout.preferredWidth: 80 * Global.scaleFactor
+        Loader {
+            active: userCard.isActive
             Layout.preferredHeight: 80 * Global.scaleFactor
+            Layout.preferredWidth: 80 * Global.scaleFactor
+
+            sourceComponent: Clock {
+                id: clock
+
+                value: new Date().getSeconds()
+
+                Timer {
+                    interval: 1000
+                    running: true
+                    repeat: true
+                    onTriggered: {
+                        clock.currentTime = new Date();
+                        clock.value = clock.currentTime.getSeconds();
+                    }
+                }
+
+            }
+
         }
 
+    }
+
+    layer.effect: DropShadow {
+        anchors.fill: userCard
+        source: userCard
+        horizontalOffset: 0
+        verticalOffset: 0
+        radius: 16 * Global.scaleFactor
+        samples: 24
+        color: "#90000000"
+        visible: offset === 0 ? true : wheel.isSelecting
     }
 
 }

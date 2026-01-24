@@ -10,10 +10,10 @@ Item {
 
     property int currentIndex: userModel.lastIndex
     property string currentUser: userModel.lastUser
-    property int visibleCount: 3 // should be odd
+    property int visibleCount: 5 // should be odd
     property real spacing: 20 * Global.scaleFactor
     property real scaleStep: 0.12
-    readonly property int animationDuration: 220
+    readonly property int animationDuration: 500
 
     signal selectedUser(int userIndex)
 
@@ -32,53 +32,61 @@ Item {
     anchors.topMargin: 24 * Global.scaleFactor
     anchors.horizontalCenter: parent.horizontalCenter
 
-    Button {
-        id: upBtn
-
+    Loader {
         anchors.top: parent.top
         anchors.horizontalCenter: parent.horizontalCenter
-        enabled: currentIndex > 0
-        onClicked: move(-1)
-        visible: currentIndex > 0
-        width: 32 * Global.scaleFactor
-        height: 32 * Global.scaleFactor
-        opacity: wheel.controlsVisible ? 1 : 0
+        active: wheel.isSelecting
 
-        background: Rectangle {
-            color: upBtn.hovered || upBtn.active ? Global.mPrimary : Global.mSurface
-            radius: upBtn.height / 2
-        }
+        sourceComponent: Button {
+            id: upBtn
 
-        contentItem: Icon {
-            utf8Code: "\udb80\udd3f"
-            color: upBtn.hovered || upBtn.active ? Global.mSurface : Global.mPrimary
-            fontSize: 24 * Global.scaleFactor
+            enabled: currentIndex > 0
+            onClicked: move(-1)
+            visible: currentIndex > 0
+            width: 32 * Global.scaleFactor
+            height: 32 * Global.scaleFactor
+
+            background: Rectangle {
+                color: upBtn.hovered || upBtn.active ? Global.mPrimary : Global.mSurface
+                radius: upBtn.height / 2
+            }
+
+            contentItem: Icon {
+                utf8Code: "\udb80\udd3f"
+                color: upBtn.hovered || upBtn.active ? Global.mSurface : Global.mPrimary
+                fontSize: 24 * Global.scaleFactor
+            }
+
         }
 
     }
 
     // ▼ DOWN
-    Button {
-        id: downBtn
-
+    Loader {
         anchors.bottom: parent.bottom
         anchors.horizontalCenter: parent.horizontalCenter
-        enabled: currentIndex < userModel.count - 1
-        visible: currentIndex < userModel.count - 1
-        onClicked: move(1)
-        width: 32 * Global.scaleFactor
-        height: 32 * Global.scaleFactor
-        opacity: wheel.controlsVisible ? 1 : 0
+        active: wheel.isSelecting // false = completely removed
 
-        contentItem: Icon {
-            utf8Code: "\udb80\udd3c"
-            color: downBtn.hovered ? Global.mSurface : Global.mPrimary
-            fontSize: 24 * Global.scaleFactor
-        }
+        sourceComponent: Button {
+            id: downBtn
 
-        background: Rectangle {
-            color: downBtn.hovered || downBtn.active ? Global.mPrimary : Global.mSurface
-            radius: downBtn.height / 2
+            enabled: currentIndex < userModel.count - 1
+            visible: currentIndex < userModel.count - 1
+            onClicked: move(1)
+            width: 32 * Global.scaleFactor
+            height: 32 * Global.scaleFactor
+
+            contentItem: Icon {
+                utf8Code: "\udb80\udd3c"
+                color: downBtn.hovered ? Global.mSurface : Global.mPrimary
+                fontSize: 24 * Global.scaleFactor
+            }
+
+            background: Rectangle {
+                color: downBtn.hovered || downBtn.active ? Global.mPrimary : Global.mSurface
+                radius: downBtn.height / 2
+            }
+
         }
 
     }
@@ -86,7 +94,7 @@ Item {
     Item {
         id: wheel
 
-        property bool controlsVisible: false
+        property bool isSelecting: false
 
         width: parent.width
 
@@ -94,7 +102,7 @@ Item {
             anchors.fill: parent
             hoverEnabled: true
             onClicked: {
-                wheel.controlsVisible = !wheel.controlsVisible;
+                wheel.isSelecting = !wheel.isSelecting;
             }
         }
 
@@ -120,32 +128,27 @@ Item {
                 z: 100 - Math.abs(offset)
                 visible: Math.abs(offset) <= visibleCount / 2 ? true : false
 
-                CardTop {
-                    id: userCard
+                Loader {
+                    active: wheel.isSelecting || offset === 0
 
-                    border.width: offset === 0 ? 0 : wheel.controlsVisible ? 1 : 0
-                    border.color: Global.getColorOffset(Global.mPrimary)
-                    radius: Global.cardBorderRadius
-                    opacity: offset === 0 ? 1 : Global.cardOpacity
-                    anchors.topMargin: 0
-                    visible: offset === 0 ? true : wheel.controlsVisible
-                    color: offset === 0 ? Global.mSurface : Global.mPrimary
-                    userIndex: index
-                    userName: name
-                    userRealName: realName
-                    userIcon: icon
-                    userHomeDir: homeDir
-                }
+                    sourceComponent: UserCard {
+                        id: userCard
 
-                DropShadow {
-                    anchors.fill: userCard
-                    source: userCard
-                    horizontalOffset: 0
-                    verticalOffset: 0
-                    radius: 20 * Global.scaleFactor
-                    samples: 24
-                    color: "#40000000"
-                    visible: offset === 0 ? true : wheel.controlsVisible
+                        isActive: offset === 0
+                        border.width: offset === 0 ? 0 : wheel.isSelecting ? 1 : 0
+                        border.color: Global.getColorOffset(Global.mPrimary)
+                        radius: Global.cardBorderRadius
+                        opacity: wheel.isSelecting ? 1 : Global.cardOpacity
+                        anchors.topMargin: 0
+                        color: offset === 0 ? Global.mSurface : Global.mPrimary
+                        userIndex: index
+                        userName: name
+                        userRealName: realName
+                        userIcon: icon
+                        userHomeDir: homeDir
+                        layer.enabled: wheel.isSelecting || Global.dropShadows
+                    }
+
                 }
 
                 Behavior on y {
