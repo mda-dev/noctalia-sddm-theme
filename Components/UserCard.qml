@@ -5,29 +5,27 @@ import QtQuick.Layouts 1.15
 
 Rectangle {
     // ========= Public API =========
-    id: headerCard
+    id: userCard
 
     // Layout / scaling
     property real cardWidth: 550 * Global.scaleFactor
     property real cardHeight: 120 * Global.scaleFactor
-    property real topMarginRatio: 0.095
+    property string userName
+    property string userRealName
+    property string userDisplayName
+    property string userIcon
+    property string userHomeDir
+    property int userIndex
+    property bool isActive
 
     anchors.top: parent.top
-    anchors.topMargin: parent.height * topMarginRatio
     anchors.horizontalCenter: parent.horizontalCenter
     width: Math.max(cardWidth, Math.min(parent.width * 0.7, cardWidth))
     height: cardHeight
     color: Global.mSurface
     opacity: Global.cardOpacity
-
-    Timer {
-        interval: 1000
-        running: true
-        repeat: true
-        onTriggered: {
-            clock.currentTime = new Date();
-            clock.value = clock.currentTime.getSeconds();
-        }
+    Component.onCompleted: {
+        userCard.userDisplayName = userRealName || userName;
     }
 
     RowLayout {
@@ -36,12 +34,20 @@ Rectangle {
         spacing: 16 * Global.scaleFactor
 
         // ========= Avatar =========
-        UserAvatar {
-            id: avatar
+        Loader {
+            active: isActive
 
-            Layout.preferredWidth: 70 * Global.scaleFactor
-            Layout.preferredHeight: 70 * Global.scaleFactor
-            Layout.alignment: Qt.AlignVCenter
+            sourceComponent: UserAvatar {
+                id: avatar
+
+                user: userCard.userName
+                userIcon: userCard.userIcon
+                userHomeDir: userCard.userHomeDir
+                Layout.preferredWidth: 70 * Global.scaleFactor
+                Layout.preferredHeight: 70 * Global.scaleFactor
+                Layout.alignment: Qt.AlignVCenter
+            }
+
         }
 
         // ========= Text =========
@@ -58,7 +64,7 @@ Rectangle {
 
                 Text {
                     height: 20
-                    text: "Welcome back, " + avatar.displayName + "!"
+                    text: "Welcome back, " + userDisplayName + "!"
                     font.family: Global.font
                     font.pixelSize: Global.fontXXL
                     // font.bold: true
@@ -82,14 +88,41 @@ Rectangle {
 
         }
 
-        Clock {
-            id: clock
-
-            value: new Date().getSeconds()
-            Layout.preferredWidth: 80 * Global.scaleFactor
+        Loader {
+            active: userCard.isActive
             Layout.preferredHeight: 80 * Global.scaleFactor
+            Layout.preferredWidth: 80 * Global.scaleFactor
+
+            sourceComponent: Clock {
+                id: clock
+
+                value: new Date().getSeconds()
+
+                Timer {
+                    interval: 1000
+                    running: true
+                    repeat: true
+                    onTriggered: {
+                        clock.currentTime = new Date();
+                        clock.value = clock.currentTime.getSeconds();
+                    }
+                }
+
+            }
+
         }
 
+    }
+
+    layer.effect: DropShadow {
+        anchors.fill: userCard
+        source: userCard
+        horizontalOffset: 0
+        verticalOffset: 0
+        radius: 16 * Global.scaleFactor
+        samples: 24
+        color: "#40000000"
+        visible: offset === 0 ? true : wheel.isSelecting
     }
 
 }

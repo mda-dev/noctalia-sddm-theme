@@ -29,6 +29,7 @@ QtObject {
     readonly property real cardBorderRadius: (config.cardRadius || 20) * scaleFactor
     readonly property real buttonBorderRadius: (config.borderRadius || 20) * scaleFactor
     readonly property real inputBorderRadius: (config.passwordInputRadius || 20) * scaleFactor
+    readonly property bool dropShadows: config.dropShadows === "true" || false
     // Colors
     readonly property color mPrimary: config.mPrimary || "#fff59b"
     readonly property color mOnPrimary: config.mOnPrimary || "#0e0e43"

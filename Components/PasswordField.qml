@@ -8,12 +8,30 @@ Rectangle {
 
     property string textVal: ""
     property bool error: false
+    property int userIndex
+    property var cachedUsers: []
 
     height: 50 * Global.scaleFactor
-    color: Global.mSurface
+    color: 'transparent'
     radius: Global.inputBorderRadius
     border.width: 2 * Global.scaleFactor
     border.color: errorMessage.text !== "" ? Global.mError : Global.mPrimary
+
+    // Cache users
+    Repeater {
+        model: userModel
+
+        delegate: Item {
+            Component.onCompleted: {
+                cachedUsers.push({
+                    "name": name,
+                    "realName": realName,
+                    "icon": icon
+                });
+            }
+        }
+
+    }
 
     RowLayout {
         id: row
@@ -68,7 +86,10 @@ Rectangle {
             borderRadius: Math.max(root.radius - row.anchorMargins, 0)
             Layout.fillHeight: true
             Layout.preferredWidth: iconButton.hovered ? 100 * Global.scaleFactor : root.height - (2 * row.anchorMargins)
-            onClicked: sddm.login(userModel.lastUser, passwordField.text, sessionModel.lastIndex)
+            onClicked: () => {
+                var currUserName = cachedUsers[userIndex].name;
+                sddm.login(currUserName, passwordField.text, sessionModel.lastIndex);
+            }
         }
 
     }

@@ -14,6 +14,7 @@ and [Noctalia Dev](https://noctalia.dev/)
 
 ## Features
 
+- Multiple user support (clicking top card allows you to switch between users)
 - Color sync with Notcatlia-Shell via user-templates (optional)
 - Basic script for instalation / removal in default SDDM config `install.sh` `uninstall.sh`
   - theme dir : `/usr/share/sddm/themes/noctalia`
@@ -28,8 +29,7 @@ and [Noctalia Dev](https://noctalia.dev/)
 
 ### Curent WIP
 
-- UI Scaling for resolutions other than 1080p
-- User selection instead of last user
+- Clean-up refactor and optimize
 
 ## Instalation
 

@@ -4,6 +4,10 @@ import QtQuick 2.15
 Rectangle {
     id: root
 
+    function setSelectedUser(user) {
+        root.selectedUser = user;
+    }
+
     color: config.mSurfaceVariant
     LayoutMirroring.enabled: Qt.locale().textDirection == Qt.RightToLeft
     LayoutMirroring.childrenInherit: true
@@ -34,14 +38,20 @@ Rectangle {
         cached: true
     }
 
-    CardTop {
-        radius: Global.cardBorderRadius
-        opacity: Global.cardOpacity
+    UserSelector {
+        id: userSelector
+
+        width: 550 * Global.scaleFactor
+        height: 250 * Global.scaleFactor
+        onSelectedUser: function(currUserIndex) {
+            bottomCard.userIndex = currUserIndex;
+        }
     }
 
     CardBottom {
-        radius: Global.cardBorderRadius
-        opacity: Global.cardOpacity
+        id: bottomCard
+
+        userIndex: userModel.lastIndex
     }
 
 }
