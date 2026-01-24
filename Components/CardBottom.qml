@@ -3,7 +3,7 @@ import QtGraphicalEffects 1.12
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
 
-Rectangle {
+Item {
     id: loginCard
 
     readonly property real marginRatio: 0.09
@@ -17,8 +17,29 @@ Rectangle {
     anchors.horizontalCenter: parent.horizontalCenter
     width: Math.max(cardWidth, Math.min(parent.width * 0.7, cardWidth))
     height: cardHeight
-    color: Global.mSurface
-    opacity: Global.cardOpacity
+
+    Rectangle {
+        id: cardBg
+
+        color: Global.mSurface
+        anchors.fill: parent
+        radius: Global.cardBorderRadius
+        opacity: Global.cardOpacity
+        layer.enabled: Global.dropShadows
+
+        layer.effect: DropShadow {
+            id: cardShadow
+
+            anchors.fill: cardBg
+            source: cardBg
+            horizontalOffset: 0
+            verticalOffset: 0
+            radius: 16
+            samples: 24
+            color: "#99000000"
+        }
+
+    }
 
     ColumnLayout {
         anchors.fill: parent
@@ -36,16 +57,6 @@ Rectangle {
             Layout.fillWidth: true
         }
 
-    }
-
-    DropShadow {
-        anchors.fill: loginCard
-        source: loginCard
-        horizontalOffset: 0
-        verticalOffset: 0
-        radius: 16
-        samples: 24
-        color: "#40000000"
     }
 
 }

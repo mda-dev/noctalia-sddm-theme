@@ -52,8 +52,6 @@ Rectangle {
         id: bottomCard
 
         userIndex: userModel.lastIndex
-        radius: Global.cardBorderRadius
-        opacity: Global.cardOpacity
     }
 
 }

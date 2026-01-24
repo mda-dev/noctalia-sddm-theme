@@ -12,7 +12,7 @@ Rectangle {
     property var cachedUsers: []
 
     height: 50 * Global.scaleFactor
-    color: Global.mSurface
+    color: 'transparent'
     radius: Global.inputBorderRadius
     border.width: 2 * Global.scaleFactor
     border.color: errorMessage.text !== "" ? Global.mError : Global.mPrimary
