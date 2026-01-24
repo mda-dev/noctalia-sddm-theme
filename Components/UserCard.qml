@@ -121,7 +121,7 @@ Rectangle {
         verticalOffset: 0
         radius: 16 * Global.scaleFactor
         samples: 24
-        color: "#90000000"
+        color: "#40000000"
         visible: offset === 0 ? true : wheel.isSelecting
     }
 

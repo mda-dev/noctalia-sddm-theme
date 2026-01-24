@@ -36,7 +36,7 @@ Item {
             verticalOffset: 0
             radius: 16
             samples: 24
-            color: "#99000000"
+            color: "#40000000"
         }
 
     }
