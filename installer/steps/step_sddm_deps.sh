@@ -3,20 +3,20 @@ source "$ROOT_DIR/lib/deps.sh"
 
 DEPENDENCIES=(
   "cmd:sddm"
+  "cmd:awk"
   "cmd:sddm-greeter"
   "pkg:qt5-quickcontrols2"
   "pkg:qt5-graphicaleffects"
 )
 
-PKG_MANAGER=$(detect_package_manager)
+echo
+render_header "📦 Checking dependencies..."
 
 if [[ "$PKG_MANAGER" == "unsupported" ]]; then
   echo "❌ Unsupported package manager"
+  echo "Please manually install the required dependacies."
   exit 1
 fi
-
-echo "📦 Checking dependencies..."
-echo
 
 MISSING=()
 

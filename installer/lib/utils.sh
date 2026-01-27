@@ -23,3 +23,47 @@ ask_yes_no() {
     esac
   done
 }
+
+option_exists() {
+  local value="$1"
+  shift
+  local arr=("$@")
+
+  for item in "${arr[@]}"; do
+    if [[ "$item" == "$value" ]]; then
+      return 0 # Found
+    fi
+  done
+  return 1 # Not found
+}
+
+set_sddm_config() {
+  # Get sddm config file
+  if [[ ! -f $SDDM_CONF ]]; then
+    echo "Select your sddm config file"
+    cd $SDDM_CONF_DIR
+    select file in *; do
+      if [[ -f "$file" ]]; then
+        SDDM_CONF="$SDDM_CONF_DIR/$file"
+        break
+      else
+        echo "Invalid choice"
+      fi
+    done
+  fi
+}
+
+render_header() {
+  local value="$1"
+  echo "=================================================="
+  echo "$1"
+  echo "=================================================="
+  echo ""
+}
+
+render_subheader() {
+  local value="$1"
+  echo ""
+  echo "$1"
+  echo ""
+}

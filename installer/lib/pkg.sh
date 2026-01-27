@@ -15,18 +15,19 @@ detect_package_manager() {
 }
 
 install_package() {
+  local name="${1#*:}"
   case "$PKG_MANAGER" in
   apt)
-    run_cmd sudo apt install -y "$1"
+    run_cmd sudo apt install -y "$name"
     ;;
   dnf)
-    run_cmd sudo dnf install -y "$1"
+    run_cmd sudo dnf install -y "$name"
     ;;
   yum)
-    run_cmd sudo yum install -y "$1"
+    run_cmd sudo yum install -y "$name"
     ;;
   pacman)
-    run_cmd sudo pacman -Sy --noconfirm "$1"
+    run_cmd sudo pacman -Sy --noconfirm "$name"
     ;;
   esac
 }
