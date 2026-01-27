@@ -6,7 +6,7 @@ Text {
     property real fontSize: Global.fontM
 
     text: utf8Code
-    font.family: "JetBrainsMono Nerd Font"
+    font.family: Global.nerdFont
     font.pixelSize: fontSize
     font.bold: true
     horizontalAlignment: Text.AlignHCenter
