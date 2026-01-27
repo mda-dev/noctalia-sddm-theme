@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 SDDM_CONF="/etc/sddm.conf"
-echo
 render_header "📂 Installing theme files..."
 
 # Create theme dir
@@ -15,6 +14,7 @@ run_cmd cp "$PROJECT_ROOT/Globals.qml" $DEST_DIR
 run_cmd cp "$PROJECT_ROOT/qmldir" $DEST_DIR
 run_cmd cp "$PROJECT_ROOT/metadata.desktop" $DEST_DIR
 run_cmd cp "$PROJECT_ROOT/theme.conf" $DEST_DIR
+render_info "Theme files copied successfuly!"
 
 render_subheader "⚙️ Activating theme..."
 
@@ -36,3 +36,4 @@ fi
 CUR_THEME=$(ini_get $SDDM_CONF Theme Current)
 run_cmd ini_set $SDDM_CONF Theme Current.bak $CUR_THEME
 run_cmd ini_set $SDDM_CONF Theme Current $PROJECT_NAME
+render_info "Theme activated!"

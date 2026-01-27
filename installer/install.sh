@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 set -e
 
+if [[ "$EUID" -ne 0 ]]; then
+  echo "🔐 Script requires elevated privileges..."
+  exec sudo "$0" "$@"
+fi
+
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$ROOT_DIR/.." && pwd)"
 PROJECT_NAME=noctalia
@@ -32,7 +37,7 @@ echo
 render_header "🚀 $PROJECT_NAME sddm theme instalation"
 
 if $DRY_RUN; then
-  render_subheader "🧪 DRY-RUN MODE ENABLED (no changes will be made)"
+  render_info "DRY-RUN MODE ENABLED (no changes will be made)"
 fi
 
 PKG_MANAGER=$(detect_package_manager)

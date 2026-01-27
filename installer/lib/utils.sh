@@ -55,6 +55,7 @@ set_sddm_config() {
 
 render_header() {
   local value="$1"
+  echo ""
   echo "=================================================="
   echo "$1"
   echo "=================================================="
@@ -66,4 +67,9 @@ render_subheader() {
   echo ""
   echo "$1"
   echo ""
+}
+
+render_info() {
+  local value="$1"
+  echo "[ℹ️]: $1"
 }

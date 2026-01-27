@@ -29,9 +29,8 @@ for dep in "${DEPENDENCIES[@]}"; do
   fi
 done
 
-echo
-
 if [[ ${#MISSING[@]} -eq 0 ]]; then
+  echo
   echo "🎉 All dependencies satisfied"
   return 0
 fi
