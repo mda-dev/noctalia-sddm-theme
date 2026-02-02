@@ -25,10 +25,10 @@ and [Noctalia Dev](https://noctalia.dev/)
 - Various customizable settings via `theme.config` or
   `theme.template.config` see [Configuration](#configuration) section
 
-> [!NOTE] - Dependencies
-> Theme
+> [!NOTE]
+> Theme Dependencies
 > `qt5-graphicaleffects` and `qt5-quickcontrols2`
-> Misc (installer)
+> Misc Dependencies (installer)
 > `jq` - used for handling .json mutations (wallpaper-sync)
 > `awk` - use for handling .conf mutations (installer)
 
@@ -44,7 +44,7 @@ For quick information about what the installer will do,
 you can run it with `--dry-run` argument and no changes will be made.
 
 <details>
-  <summary> Autotomatic (with scripts) </summary>
+  <summary> Automatic (with scripts) </summary>
   Run the installer script from within the installer directory.
 
 ```sh
