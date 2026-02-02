@@ -16,16 +16,21 @@ and [Noctalia Dev](https://noctalia.dev/)
 
 - Multiple user support (clicking top card allows you to switch between users)
 - Color sync with Notcatlia-Shell via user-templates (optional)
-- Basic script for instalation / removal in default SDDM config `install.sh` `uninstall.sh`
+- Script for instalation / removal `./installer/install.sh
   - theme dir : `/usr/share/sddm/themes/noctalia`
-  - sddm.conf : `/etc/sddm.conf`
+  - sddm.conf : `/etc/sddm.conf` if default is not found you will be prompted
+    to select a .conf file from within `/etc/sddm.conf.d/` directory
   - shell integration: `~/.config/noctalia/user-templates.toml` (optional)
 - Wallpaper sync with Noctalia-Shell via script `sync-shell-wallpaper.sh` (optional)
-- Various customizable settings via `theme.config` or `theme.template.config`
+- Various customizable settings via `theme.config` or
+  `theme.template.config` see [Configuration](#configuration) section
 
 > [!NOTE] - Dependencies
+> Theme
 > `qt5-graphicaleffects` and `qt5-quickcontrols2`
-> Or their equivalent Qt6 counterparts
+> Misc (installer)
+> `jq` - used for handling .json mutations (wallpaper-sync)
+> `awk` - use for handling .conf mutations (installer)
 
 ### Curent WIP
 
@@ -35,23 +40,27 @@ and [Noctalia Dev](https://noctalia.dev/)
 
 Clone repo with `git clone https://github.com/mda-dev/noctalia-sddm-theme.git noctalia`
 
+For quick information about what the installer will do,
+you can run it with `--dry-run` argument and no changes will be made.
+
 <details>
   <summary> Autotomatic (with scripts) </summary>
-  Run the installer script from within the noctalia folder.
+  Run the installer script from within the installer directory.
 
 ```sh
-./install.sh
+sudo bash ./installer/install.sh
 ```
 
-You will be prompted during the installation for optional
-Noctalia-Shell color integration
+You will be prompted during the installation for the following optional features:
 
-For wallpaper sync there is no script yet [Manual Install](#wallpaper-sync)
+- Noctalia-Shell color sync
+- Noctalia-Shell wallpaper sync.
 
 If you install / configure the sync "features" you will need to change
 the color scheme and wallpaper once for changes to take effect.
 
-After you can use the [Test command](#test-theme-installation)
+After installation you can use the [Test command](#test-theme-installation)
+to view results
 
 </details>
 
@@ -64,7 +73,8 @@ After you can use the [Test command](#test-theme-installation)
 
 Copy directory to sddm themes with `sudo cp -r noctalia /usr/share/sddm/themes`
 
-Activate theme by opening `/etc/sddm.conf` and changing the `Current` key to the following:
+Activate theme by opening either default `/etc/sddm.conf` or `/etc/sddm.conf.d/CUSTOM.conf`
+and changing the `Current` key to the following:
 
 ```ini
 [Theme]
@@ -76,7 +86,7 @@ Current=noctalia
 Set file permissions for theme.conf (needed for Noctalia-Shell)
 
 ```sh
-sudo chmod 664 "/usr/share/sddm/themes/noctalia/theme.conf"
+sudo chmod 666 "/usr/share/sddm/themes/noctalia/theme.conf"
 ```
 
 ### Color-Sync
@@ -104,7 +114,7 @@ Open Noctalia-Shell `Settings > Hooks` and add the following inside
 Set file permissions for wallpaper.png (gets overwritten by the script)
 
 ```sh
-sudo chmod 664 "/usr/share/sddm/themes/noctalia/Assets/wallpaper.png"
+sudo chmod 666 "/usr/share/sddm/themes/noctalia/Assets/wallpaper.png"
 ```
 
 </details>
@@ -117,7 +127,8 @@ sddm-greeter --test-mode --theme /usr/share/sddm/themes/noctalia
 
 ## Configuration
 
-The place where you can configure some settings changes depending if you enable Color-Sync
+The place where you can configure some settings changes
+depending if you enable Color-Sync
 
 <details>
 <summary>With Color-Sync</summary>
@@ -133,7 +144,8 @@ you see fit and then refresh your theme within Noctalia settings
 
 <details>
 <summary>Without Color-Sync (standalone)</summary>
-Open `theme.conf` file with your favorite editor and change any of the values you see fit.
+Open `theme.conf` file with your favorite editor and
+change any of the values you see fit.
 
 ```sh
 sudo nano /etc/share/sddm/themes/noctalia/theme.conf
