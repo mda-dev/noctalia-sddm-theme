@@ -33,6 +33,12 @@ Item {
     onValueChanged: canvas.requestPaint()
     onMaximumChanged: canvas.requestPaint()
 
+    FontLoader {
+        id: nerdFont
+
+        source: "../Assets/nerd-font.ttf"
+    }
+
     Canvas {
         id: canvas
 
@@ -65,7 +71,7 @@ Item {
     Text {
         anchors.centerIn: parent
         text: Qt.formatTime(currentTime, "HH\nmm") // 24h format
-        font.family: "JetBrainsMono Nerd Font"
+        font.family: Global.nerdFont
         color: textColor
         font.pixelSize: Global.fontM
     }

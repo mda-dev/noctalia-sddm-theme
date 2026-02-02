@@ -24,5 +24,3 @@ fi
 EXT="${WALLPAPER##*.}"
 
 cp -fa "$WALLPAPER" "$DEST_DIR/background.png"
-
-notify "WALLPAPER CHANGED"

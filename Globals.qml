@@ -23,7 +23,13 @@ QtObject {
     readonly property real screenHeight: Screen.height
     readonly property string defaultBackground: "Assets/background.png"
     readonly property string defaultAvatar: "Assets/logo.svg"
-    readonly property string font: "Fira Sans, Noto Sans, sans-serif"
+    readonly property FontLoader
+    nerd: FontLoader {
+        source: "Assets/nerd-font.ttf"
+    }
+
+    readonly property string nerdFont: nerd.status === FontLoader.Ready ? nerd.name : "monospace"
+    readonly property string font: config.fontFamily || "Fira Sans, Noto Sans, sans-serif"
     readonly property int backgroundBlur: config.blurRadius || 0
     readonly property real cardOpacity: config.cardOpacity || 0
     readonly property real cardBorderRadius: (config.cardRadius || 20) * scaleFactor
