@@ -11,7 +11,7 @@ Controls.ComboBox {
     currentIndex: sessionModel.lastIndex
 
     delegate: Controls.ItemDelegate {
-        width: parent.width
+        width: sessionList.width
         text: model.name || ""
         highlighted: sessionList.highlightedIndex === index
 
