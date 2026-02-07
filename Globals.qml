@@ -10,6 +10,8 @@ QtObject {
 
     id: global
 
+    property int currentSessionIndex: sessionModel.lastIndex
+
     // ---------------------
     // Immutable properties
     // ---------------------
