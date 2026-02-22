@@ -16,7 +16,7 @@ and [Noctalia Dev](https://noctalia.dev/)
 
 - Multiple user support (clicking top card allows you to switch between users)
 - Color sync with Notcatlia-Shell via user-templates (optional)
-- Script for instalation / removal `./installer/install.sh
+- Script for instalation / removal `./installer/install.sh`
   - theme dir : `/usr/share/sddm/themes/noctalia`
   - sddm.conf : `/etc/sddm.conf` if default is not found you will be prompted
     to select a .conf file from within `/etc/sddm.conf.d/` directory
@@ -126,14 +126,26 @@ sddm-greeter --test-mode --theme /usr/share/sddm/themes/noctalia
 ```
 
 ## Configuration
+#### Avatar
+The theme searches for the following files in the exact order they are listed below.
+Once a file has been found the search stops.
+```
+$HOME/.face.icon
+$HOME/.face
+/usr/share/sddm/faces/$USER/.face.icon
+/var/lib/AccountsService/icons/$USER
+/usr/share/sddm/themes/noctalia/Assets/logo.svg
+```
 
+#### General UI
 The place where you can configure some settings changes
 depending if you enable Color-Sync
 
 <details>
 <summary>With Color-Sync</summary>
-Open `theme.template.conf` with your favorite editor and change any of the values 
-you see fit and then refresh your theme within Noctalia settings
+
+  Open `theme.template.conf` with your favorite editor and change any of the values 
+  you see fit and then refresh your theme within Noctalia settings
 
 > [!CAUTION]
 > Do not change values start with the letter `m` ex `mPrimary`, those are set by Noctalia-Shell
@@ -144,8 +156,9 @@ you see fit and then refresh your theme within Noctalia settings
 
 <details>
 <summary>Without Color-Sync (standalone)</summary>
-Open `theme.conf` file with your favorite editor and
-change any of the values you see fit.
+
+  Open `theme.conf` file with your favorite editor and  
+  change any of the values you see fit.
 
 ```sh
 sudo nano /etc/share/sddm/themes/noctalia/theme.conf
