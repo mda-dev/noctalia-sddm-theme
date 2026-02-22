@@ -13,7 +13,6 @@ Rectangle {
     property string userName
     property string userRealName
     property string userDisplayName
-    property string userIcon
     property string userHomeDir
     property int userIndex
     property bool isActive
@@ -41,7 +40,6 @@ Rectangle {
                 id: avatar
 
                 user: userCard.userName
-                userIcon: userCard.userIcon
                 userHomeDir: userCard.userHomeDir
                 Layout.preferredWidth: 70 * Global.scaleFactor
                 Layout.preferredHeight: 70 * Global.scaleFactor

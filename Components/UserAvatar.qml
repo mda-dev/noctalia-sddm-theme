@@ -13,13 +13,15 @@ Item {
     property string userIcon
     property string userHomeDir
     property string user
+    // TODO: figure out a way to try loading these avatar paths
+    // without QML Image crying and loggin errors
     property var iconPaths: {
-        var paths = [userIcon];
+        var paths = [];
         paths.push("file://" + userHomeDir + "/.face.icon");
         paths.push("file://" + userHomeDir + "/.face");
         paths.push("file:///usr/share/sddm/faces/" + user + ".face.icon");
         paths.push("file:///var/lib/AccountsService/icons/" + user);
-        paths.push("file:///usr/share/sddm/faces/.face.icon");
+        paths.push("../Assets/logo.svg");
         return paths;
     }
 

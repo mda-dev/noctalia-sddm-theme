@@ -144,7 +144,7 @@ Item {
                         userIndex: index
                         userName: name
                         userRealName: realName
-                        userIcon: icon
+                        // userIcon: icon
                         userHomeDir: homeDir
                         layer.enabled: wheel.isSelecting || Global.dropShadows
                     }
