@@ -8,7 +8,10 @@ Controls.ComboBox {
 
     model: sessionModel
     textRole: "name"
-    currentIndex: sessionModel.lastIndex
+    currentIndex: Global.currentSessionIndex // Bind to the Global singleton property
+    onCurrentIndexChanged: {
+        Global.currentSessionIndex = currentIndex; // Update the Global singleton property
+    }
 
     delegate: Controls.ItemDelegate {
         width: parent.width
