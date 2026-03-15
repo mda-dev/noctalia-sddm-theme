@@ -5,20 +5,15 @@ theme for SDDM with the kanagawa color sheme as default
 
 Inspiration: [Noctalia SDDM Theme](https://github.com/mahaveergurjar/sddm/tree/noctalia)
 and [Noctalia Dev](https://noctalia.dev/)
-
-> [!NOTE]
-> Most of the scripts were made with the help of Chatgipity + some common sense.
-> First time for me diving into `.qml` language.
-
 ![Preview Image](Assets/preview.webp "Preview")
 
 ## Features
 
 - Multiple user support (clicking top card allows you to switch between users)
-- Color sync with Notcatlia-Shell via user-templates (optional)
-- Script for instalation / removal `./installer/install.sh`
-  - theme dir : `/usr/share/sddm/themes/noctalia`
-  - sddm.conf : `/etc/sddm.conf` if default is not found you will be prompted
+- Color sync with Noctalia-Shell via user-templates (optional)
+- Script for installation / removal `./installer/install.sh`
+  - theme directory: `/usr/share/sddm/themes/noctalia`
+  - SDDM configuration : `/etc/sddm.conf` if default is not found you will be prompted
     to select a .conf file from within `/etc/sddm.conf.d/` directory
   - shell integration: `~/.config/noctalia/user-templates.toml` (optional)
 - Wallpaper sync with Noctalia-Shell via script `sync-shell-wallpaper.sh` (optional)
@@ -32,11 +27,15 @@ and [Noctalia Dev](https://noctalia.dev/)
 > `jq` - used for handling .json mutations (wallpaper-sync)
 > `awk` - use for handling .conf mutations (installer)
 
-### Curent WIP
+> [!NOTE]
+> If you are using Wayland you might need
+> to also install `qt5-wayland`
 
-- Clean-up refactor and optimize
+### Current W.I.P
 
-## Instalation
+- Migrate from qt5 to qt6
+
+## Installation
 
 Clone repo with `git clone https://github.com/mda-dev/noctalia-sddm-theme.git noctalia`
 
@@ -151,7 +150,7 @@ depending if you enable Color-Sync
 Open `theme.template.conf` with your favorite editor and change any of the values
 you see fit and then refresh your theme within Noctalia settings
 
-> [!CAUTION]
+> [!WARNING]
 > Do not change values start with the letter `m` ex `mPrimary`, those are set by Noctalia-Shell
 > whenever you change your theme.
 > The Color-Sync won't work anymore
