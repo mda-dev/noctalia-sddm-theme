@@ -111,10 +111,10 @@ Open Noctalia-Shell `Settings > Hooks` and add the following inside
 /usr/share/sddm/themes/noctalia/sync-shell-wallpaper.sh
 ```
 
-Set file permissions for wallpaper.png (gets overwritten by the script)
+Set file permissions for background.png (gets overwritten by the script)
 
 ```sh
-sudo chmod 666 "/usr/share/sddm/themes/noctalia/Assets/wallpaper.png"
+sudo chmod 666 "/usr/share/sddm/themes/noctalia/Assets/background.png"
 ```
 
 </details>
@@ -126,26 +126,30 @@ sddm-greeter --test-mode --theme /usr/share/sddm/themes/noctalia
 ```
 
 ## Configuration
+
 #### Avatar
+
 The theme searches for the following files in the exact order they are listed below.
 Once a file has been found the search stops.
+
 ```
 $HOME/.face.icon
 $HOME/.face
-/usr/share/sddm/faces/$USER/.face.icon
+/usr/share/sddm/faces/$USER.face.icon
 /var/lib/AccountsService/icons/$USER
 /usr/share/sddm/themes/noctalia/Assets/logo.svg
 ```
 
 #### General UI
+
 The place where you can configure some settings changes
 depending if you enable Color-Sync
 
 <details>
 <summary>With Color-Sync</summary>
 
-  Open `theme.template.conf` with your favorite editor and change any of the values 
-  you see fit and then refresh your theme within Noctalia settings
+Open `theme.template.conf` with your favorite editor and change any of the values
+you see fit and then refresh your theme within Noctalia settings
 
 > [!CAUTION]
 > Do not change values start with the letter `m` ex `mPrimary`, those are set by Noctalia-Shell
@@ -157,8 +161,8 @@ depending if you enable Color-Sync
 <details>
 <summary>Without Color-Sync (standalone)</summary>
 
-  Open `theme.conf` file with your favorite editor and  
-  change any of the values you see fit.
+Open `theme.conf` file with your favorite editor and  
+ change any of the values you see fit.
 
 ```sh
 sudo nano /etc/share/sddm/themes/noctalia/theme.conf
