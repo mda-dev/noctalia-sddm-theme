@@ -7,6 +7,12 @@ render_header "🧩 Installing Noctalia-Shell color sync..."
 run_cmd cp "$PROJECT_ROOT/theme.template.conf" $DEST_DIR
 run_cmd chmod 666 "$DEST_DIR/theme.conf"
 
+if [[ ! -f "$user_template" ]]; then
+  run_cmd mkdir -p "$(dirname "$user_template")"
+  run_cmd touch "$user_template"
+  run_cmd chown "$SUDO_USER" "$user_template"
+fi
+
 run_cmd ini_set $user_template templates.sddm input_path "\"$DEST_DIR/theme.template.conf\""
 run_cmd ini_set $user_template templates.sddm output_path "\"$DEST_DIR/theme.conf\""
 

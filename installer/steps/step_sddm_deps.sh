@@ -4,9 +4,9 @@ source "$ROOT_DIR/lib/deps.sh"
 DEPENDENCIES=(
   "cmd:sddm"
   "cmd:awk"
-  "cmd:sddm-greeter"
-  "pkg:qt5-quickcontrols2"
-  "pkg:qt5-graphicaleffects"
+  "cmd:sddm-greeter-qt6"
+  "pkg:qt6-5compat"
+  "pkg:qt6-declarative"
 )
 
 echo

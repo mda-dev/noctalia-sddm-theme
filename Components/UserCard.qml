@@ -1,7 +1,7 @@
 import ".."
-import QtGraphicalEffects 1.15
-import QtQuick 2.15
-import QtQuick.Layouts 1.15
+import Qt5Compat.GraphicalEffects
+import QtQuick
+import QtQuick.Layouts
 
 Rectangle {
     // ========= Public API =========

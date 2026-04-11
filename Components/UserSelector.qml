@@ -1,7 +1,7 @@
 import ".."
-import QtGraphicalEffects 1.12
-import QtQuick 2.15
-import QtQuick.Controls 2.15
+import Qt5Compat.GraphicalEffects
+import QtQuick
+import QtQuick.Controls
 
 Item {
     // ▲ UP

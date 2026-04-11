@@ -1,7 +1,7 @@
 import ".."
-import QtQuick 2.15
-import QtQuick.Controls 2.15 as Controls
-import QtQuick.Layouts 1.15
+import QtQuick
+import QtQuick.Controls as Controls
+import QtQuick.Layouts
 
 Controls.ComboBox {
     id: sessionList
