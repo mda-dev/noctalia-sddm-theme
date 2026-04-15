@@ -1,5 +1,5 @@
 import ".."
-import QtQuick 2.15
+import QtQuick
 
 Item {
     // smooth animation

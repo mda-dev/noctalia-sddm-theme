@@ -1,7 +1,7 @@
 import ".."
-import QtGraphicalEffects 1.12
-import QtQuick 2.15
-import QtQuick.Layouts 1.15
+import Qt5Compat.GraphicalEffects
+import QtQuick
+import QtQuick.Layouts
 
 Item {
     id: loginCard
