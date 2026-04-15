@@ -16,7 +16,7 @@ and [Noctalia Dev](https://noctalia.dev/)
   - SDDM configuration : `/etc/sddm.conf` if default is not found you will be prompted
     to select a .conf file from within `/etc/sddm.conf.d/` directory
   - shell integration: `~/.config/noctalia/user-templates.toml` (optional)
-- Wallpaper sync with Noctalia-Shell via script `sync-shell-wallpaper.sh` (optional)
+- Wallpaper sync with Noctalia-Shell via script `sync-shell-wallpaper.sh` (optional) (Tested Noctalia Shell <= v4.7.5 )
 - Various customizable settings via `theme.config` or
   `theme.template.config` see [Configuration](#configuration) section
 
@@ -52,8 +52,8 @@ sudo bash ./installer/install.sh
 
 You will be prompted during the installation for the following optional features:
 
-- Noctalia-Shell color sync
-- Noctalia-Shell wallpaper sync.
+- Noctalia-Shell color sync.
+- Noctalia-Shell wallpaper sync. (Tested Noctalia-Shell <= v4.7.5)
 
 If you install / configure the sync "features" you will need to change
 the color scheme and wallpaper once for changes to take effect.
