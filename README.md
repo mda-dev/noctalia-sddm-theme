@@ -13,7 +13,8 @@ and [Noctalia Dev](https://noctalia.dev/)
 - Color sync with Noctalia-Shell via user-templates (optional)
 - Script for installation / removal `./installer/install.sh`
   - theme directory: `/usr/share/sddm/themes/noctalia`
-  - SDDM configuration : `/etc/sddm.conf.d/noctalia.conf`
+  - SDDM configuration : `/etc/sddm.conf` if default is not found
+    `/etc/sddm.conf.d/noctalia.conf` will be created
   - shell integration: `~/.config/noctalia/user-templates.toml` (optional)
 - Wallpaper sync with Noctalia-Shell via script `sync-shell-wallpaper.sh` (optional) (Tested Noctalia Shell <= v4.7.5 )
 - Various customizable settings via `theme.config` or
@@ -67,7 +68,8 @@ to view results
 
 Copy directory to sddm themes with `sudo cp -r noctalia /usr/share/sddm/themes`
 
-Activate theme by creating or editing `/etc/sddm.conf.d/noctalia.conf` with:
+Activate theme by opening either default `/etc/sddm.conf` or `/etc/sddm.conf.d/noctalia.conf`
+and changing the `Current` key to the following:
 
 ```ini
 [Theme]

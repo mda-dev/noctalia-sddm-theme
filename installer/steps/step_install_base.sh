@@ -18,8 +18,10 @@ render_info "Theme files copied successfuly!"
 
 render_subheader "⚙️ Activating theme..."
 
-run_cmd mkdir -p "$SDDM_CONF_DIR"
-SDDM_CONF="$SDDM_CONF_DIR/$PROJECT_NAME.conf"
+if [[ ! -f "$SDDM_CONF" ]]; then
+  run_cmd mkdir -p "$SDDM_CONF_DIR"
+  SDDM_CONF="$SDDM_CONF_DIR/$PROJECT_NAME.conf"
+fi
 run_cmd touch "$SDDM_CONF"
 
 # Set theme to noctalia
