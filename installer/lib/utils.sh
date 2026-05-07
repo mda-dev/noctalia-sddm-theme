@@ -38,18 +38,43 @@ option_exists() {
 }
 
 set_sddm_config() {
-  # Get sddm config file
-  if [[ ! -f $SDDM_CONF ]]; then
-    echo "Select your sddm config file"
-    cd $SDDM_CONF_DIR
-    select file in *; do
-      if [[ -f "$file" ]]; then
-        SDDM_CONF="$SDDM_CONF_DIR/$file"
-        break
-      else
-        echo "Invalid choice"
-      fi
+  local theme_conf="$SDDM_CONF_DIR/$PROJECT_NAME.conf"
+
+  if [[ -f "$theme_conf" ]]; then
+    SDDM_CONF="$theme_conf"
+  elif [[ -f "$SDDM_CONF" ]]; then
+    SDDM_CONF="$SDDM_CONF"
+  else
+    SDDM_CONF="$theme_conf"
+  fi
+}
+
+find_current_sddm_theme() {
+  local conf
+  local current=""
+
+  if [[ -f /etc/sddm.conf ]]; then
+    current=$(ini_get /etc/sddm.conf Theme Current)
+  fi
+
+  if [[ -z "$current" && -d /etc/sddm.conf.d ]]; then
+    for conf in /etc/sddm.conf.d/*.conf; do
+      [[ -f "$conf" ]] || continue
+      current=$(ini_get "$conf" Theme Current)
+      [[ -n "$current" ]] && break
     done
+  fi
+
+  printf '%s\n' "$current"
+}
+
+sddm_greeter_cmd() {
+  if command_exists sddm-greeter-qt6; then
+    echo sddm-greeter-qt6
+  elif command_exists sddm-greeter; then
+    echo sddm-greeter
+  else
+    return 1
   fi
 }
 

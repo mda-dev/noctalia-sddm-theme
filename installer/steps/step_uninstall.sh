@@ -5,8 +5,15 @@ render_header "🗑️ Uninstalling $PROJECT_NAME sddm theme!"
 # Get sddm config file
 run_cmd set_sddm_config
 OLD_THEME=$(ini_get $SDDM_CONF Theme Current.bak)
-run_cmd ini_set $SDDM_CONF Theme Current $OLD_THEME
-run_cmd ini_del $SDDM_CONF Theme Current.bak
+if [[ -n "$OLD_THEME" ]]; then
+  run_cmd ini_set $SDDM_CONF Theme Current $OLD_THEME
+  run_cmd ini_del $SDDM_CONF Theme Current.bak
+else
+  run_cmd ini_del $SDDM_CONF Theme Current
+  if [[ "$SDDM_CONF" == "$SDDM_CONF_DIR/$PROJECT_NAME.conf" ]]; then
+    run_cmd rm -f "$SDDM_CONF"
+  fi
+fi
 
 # remove theme folder
 run_cmd rm -rf $DEST_DIR

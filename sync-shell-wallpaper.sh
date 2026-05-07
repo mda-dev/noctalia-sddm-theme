@@ -8,16 +8,20 @@ JSON_FILE="$HOME/.cache/noctalia/wallpapers.json"
 sleep 2
 
 WALLPAPER=$(jq -r '
-    if (.wallpapers | length) > 0 then
-        (.wallpapers | to_entries[0].value) as $value
-        | if ($value | type) == "object" then
-            ($value.dark // $value.light)
-          else
-            $value
-          end
-    else
-        .defaultWallpaper
-    end
+    def valid_path:
+        select(type == "string" and length > 0);
+
+    def wallpaper_value:
+        if type == "object" then
+            (.dark // .light // empty) | valid_path
+        else
+            valid_path
+        end;
+
+    ((.wallpapers // {})
+        | to_entries[]
+        | .value
+        | wallpaper_value) // (.defaultWallpaper | valid_path) // empty
 ' "$JSON_FILE")
 
 if [[ -z "$WALLPAPER" || "$WALLPAPER" == "null" ]]; then

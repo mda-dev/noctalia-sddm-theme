@@ -2,12 +2,11 @@
 source "$ROOT_DIR/lib/deps.sh"
 
 DEPENDENCIES=(
-  "cmd:sddm"
   "cmd:awk"
-  "cmd:sddm-greeter"
-  "pkg:qt5-quickcontrols2"
-  "pkg:qt5-graphicaleffects"
+  "cmd_any:sddm-greeter-qt6,sddm-greeter"
 )
+mapfile -t PACKAGE_DEPENDENCIES < <(package_dependencies)
+DEPENDENCIES+=("${PACKAGE_DEPENDENCIES[@]}")
 
 echo
 render_header "📦 Checking dependencies..."
@@ -41,6 +40,10 @@ echo
 
 if ask_yes_no "Install missing dependencies?"; then
   for dep in "${MISSING[@]}"; do
+    if [[ "$dep" != pkg:* ]]; then
+      echo "⚠️ ${dep#*:} must be installed manually"
+      continue
+    fi
     echo "⬇️ Installing $dep..."
     install_package "$dep"
   done

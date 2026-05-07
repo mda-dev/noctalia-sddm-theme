@@ -18,22 +18,14 @@ render_info "Theme files copied successfuly!"
 
 render_subheader "⚙️ Activating theme..."
 
-# Get sddm config file
-if [[ ! -f $SDDM_CONF ]]; then
-  echo "Select your sddm config file"
-  cd $SDDM_CONF_DIR
-  select file in *; do
-    if [[ -f "$file" ]]; then
-      SDDM_CONF="$SDDM_CONF_DIR/$file"
-      break
-    else
-      echo "Invalid choice"
-    fi
-  done
-fi
+run_cmd mkdir -p "$SDDM_CONF_DIR"
+SDDM_CONF="$SDDM_CONF_DIR/$PROJECT_NAME.conf"
+run_cmd touch "$SDDM_CONF"
 
 # Set theme to noctalia
-CUR_THEME=$(ini_get $SDDM_CONF Theme Current)
-run_cmd ini_set $SDDM_CONF Theme Current.bak $CUR_THEME
-run_cmd ini_set $SDDM_CONF Theme Current $PROJECT_NAME
+CUR_THEME=$(find_current_sddm_theme)
+if [[ -n "$CUR_THEME" && "$CUR_THEME" != "$PROJECT_NAME" ]]; then
+  run_cmd ini_set "$SDDM_CONF" Theme Current.bak "$CUR_THEME"
+fi
+run_cmd ini_set "$SDDM_CONF" Theme Current "$PROJECT_NAME"
 render_info "Theme activated!"

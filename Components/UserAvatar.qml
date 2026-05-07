@@ -1,5 +1,5 @@
 import ".."
-import QtGraphicalEffects 1.15
+import Qt5Compat.GraphicalEffects
 import QtQuick 2.15
 import SddmComponents 2.0
 

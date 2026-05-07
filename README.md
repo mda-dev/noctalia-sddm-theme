@@ -13,8 +13,7 @@ and [Noctalia Dev](https://noctalia.dev/)
 - Color sync with Noctalia-Shell via user-templates (optional)
 - Script for installation / removal `./installer/install.sh`
   - theme directory: `/usr/share/sddm/themes/noctalia`
-  - SDDM configuration : `/etc/sddm.conf` if default is not found you will be prompted
-    to select a .conf file from within `/etc/sddm.conf.d/` directory
+  - SDDM configuration: `/etc/sddm.conf.d/noctalia.conf`
   - shell integration: `~/.config/noctalia/user-templates.toml` (optional)
 - Wallpaper sync with Noctalia-Shell via script `sync-shell-wallpaper.sh` (optional) (Tested Noctalia Shell <= v4.7.5 )
 - Various customizable settings via `theme.config` or
@@ -22,18 +21,16 @@ and [Noctalia Dev](https://noctalia.dev/)
 
 > [!NOTE]
 > Theme Dependencies
-> `qt5-graphicaleffects` and `qt5-quickcontrols2`
+> Fedora: `sddm`, `sddm-wayland-generic`, `qt6-qt5compat`, `qt6-qtsvg`
+> Arch/CachyOS: `sddm`, `qt6-5compat`, `qt6-svg`
 > Misc Dependencies (installer)
 > `jq` - used for handling .json mutations (wallpaper-sync)
 > `awk` - use for handling .conf mutations (installer)
 
 > [!NOTE]
-> If you are using Wayland you might need
-> to also install `qt5-wayland`
-
-### Current W.I.P
-
-- Migrate from qt5 to qt6
+> The theme targets Qt6 SDDM greeters. The installer test command prefers
+> `sddm-greeter-qt6` and falls back to `sddm-greeter` when the Qt6 binary is
+> not available separately.
 
 ## Installation
 
@@ -72,8 +69,7 @@ to view results
 
 Copy directory to sddm themes with `sudo cp -r noctalia /usr/share/sddm/themes`
 
-Activate theme by opening either default `/etc/sddm.conf` or `/etc/sddm.conf.d/CUSTOM.conf`
-and changing the `Current` key to the following:
+Activate theme by creating or editing `/etc/sddm.conf.d/noctalia.conf` with:
 
 ```ini
 [Theme]
@@ -119,6 +115,12 @@ sudo chmod 666 "/usr/share/sddm/themes/noctalia/Assets/background.png"
 </details>
 
 ## Test theme installation
+
+```sh
+sddm-greeter-qt6 --test-mode --theme /usr/share/sddm/themes/noctalia
+```
+
+If your distro still exposes the greeter as `sddm-greeter`, use:
 
 ```sh
 sddm-greeter --test-mode --theme /usr/share/sddm/themes/noctalia

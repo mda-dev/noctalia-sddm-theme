@@ -18,6 +18,16 @@ is_installed() {
 
   case "$type" in
   cmd) is_installed_cmd "$name" ;;
+  cmd_any)
+    local cmd
+    IFS=',' read -ra commands <<<"$name"
+    for cmd in "${commands[@]}"; do
+      if is_installed_cmd "$cmd"; then
+        return 0
+      fi
+    done
+    return 1
+    ;;
   pkg) is_installed_pkg "$name" ;;
   *)
     echo "Unknown dependency type: $type"

@@ -14,6 +14,30 @@ detect_package_manager() {
   fi
 }
 
+package_dependencies() {
+  case "$PKG_MANAGER" in
+  dnf | yum)
+    printf '%s\n' \
+      "pkg:sddm" \
+      "pkg:sddm-wayland-generic" \
+      "pkg:qt6-qt5compat" \
+      "pkg:qt6-qtsvg"
+    ;;
+  pacman)
+    printf '%s\n' \
+      "pkg:sddm" \
+      "pkg:qt6-5compat" \
+      "pkg:qt6-svg"
+    ;;
+  apt)
+    printf '%s\n' \
+      "pkg:sddm" \
+      "pkg:qml6-module-qt5compat-graphicaleffects" \
+      "pkg:qml6-module-qtsvg"
+    ;;
+  esac
+}
+
 install_package() {
   local name="${1#*:}"
   case "$PKG_MANAGER" in
