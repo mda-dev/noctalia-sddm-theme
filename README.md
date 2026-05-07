@@ -10,14 +10,15 @@ and [Noctalia Dev](https://noctalia.dev/)
 ## Features
 
 - Multiple user support (clicking top card allows you to switch between users)
+- Standalone SDDM theme using `theme.conf`
 - Color sync with Noctalia-Shell via user-templates (optional)
 - Script for installation / removal `./installer/install.sh`
   - theme directory: `/usr/share/sddm/themes/noctalia`
   - SDDM configuration: `/etc/sddm.conf.d/noctalia.conf`
   - shell integration: `~/.config/noctalia/user-templates.toml` (optional)
 - Wallpaper sync with Noctalia-Shell via script `sync-shell-wallpaper.sh` (optional) (Tested Noctalia Shell <= v4.7.5 )
-- Various customizable settings via `theme.config` or
-  `theme.template.config` see [Configuration](#configuration) section
+- Various customizable settings via `theme.conf` or
+  `theme.template.conf` see [Configuration](#configuration) section
 
 > [!NOTE]
 > Theme Dependencies
@@ -55,6 +56,11 @@ You will be prompted during the installation for the following optional features
 If you install / configure the sync "features" you will need to change
 the color scheme and wallpaper once for changes to take effect.
 
+The optional Noctalia sync steps assume a mutable system install under
+`/usr/share/sddm/themes/noctalia`. Image-based or read-only distro packages
+should install the theme normally and choose their own writable output paths for
+generated config or synced assets.
+
 After installation you can use the [Test command](#test-theme-installation)
 to view results
 
@@ -78,11 +84,12 @@ Current=noctalia
 
 ### Noctalia-Shell (optional)
 
-Set file permissions for theme.conf (needed for Noctalia-Shell)
+The theme works without Noctalia. In that mode, edit the installed
+`theme.conf` directly and leave `theme.template.conf` unused.
 
-```sh
-sudo chmod 666 "/usr/share/sddm/themes/noctalia/theme.conf"
-```
+Noctalia users can enable user templates and render `theme.template.conf` to the
+installed theme's `theme.conf`. The SDDM greeter only reads the installed theme
+config; it does not read `~/.config/noctalia` directly.
 
 ### Color-Sync
 
@@ -97,6 +104,11 @@ input_path = "/usr/share/sddm/themes/noctalia/theme.template.conf"
 output_path = "/usr/share/sddm/themes/noctalia/theme.conf"
 ```
 
+On mutable installs, the installer makes the installed `theme.conf` writable by
+the installing user for this output path. If your distro packages the theme in a
+read-only location, keep `theme.template.conf` as the source and point Noctalia
+at a packaging-specific writable output path instead.
+
 ### Wallpaper-sync
 
 Open Noctalia-Shell `Settings > Hooks` and add the following inside
@@ -106,11 +118,10 @@ Open Noctalia-Shell `Settings > Hooks` and add the following inside
 /usr/share/sddm/themes/noctalia/sync-shell-wallpaper.sh
 ```
 
-Set file permissions for background.png (gets overwritten by the script)
-
-```sh
-sudo chmod 666 "/usr/share/sddm/themes/noctalia/Assets/background.png"
-```
+Wallpaper sync copies the selected wallpaper over the installed
+`Assets/background.png`. It only works when that installed asset path is
+writable by the hook. On immutable or image-based distros, package the theme and
+adjust the hook or packaging to use a distro-owned writable target path.
 
 </details>
 
