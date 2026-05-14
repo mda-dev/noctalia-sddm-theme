@@ -78,10 +78,10 @@ Current=noctalia
 
 ### Noctalia-Shell (optional)
 
-Make theme.conf writable by your user (needed for Noctalia-Shell)
+Set file permissions for theme.conf (needed for Noctalia-Shell)
 
 ```sh
-sudo chown "$USER" "/usr/share/sddm/themes/noctalia/theme.conf"
+sudo chmod 666 "/usr/share/sddm/themes/noctalia/theme.conf"
 ```
 
 ### Color-Sync
@@ -97,8 +97,6 @@ input_path = "/usr/share/sddm/themes/noctalia/theme.template.conf"
 output_path = "/usr/share/sddm/themes/noctalia/theme.conf"
 ```
 
-This assumes the installed theme.conf is writable by Noctalia-Shell.
-
 ### Wallpaper-sync
 
 Open Noctalia-Shell `Settings > Hooks` and add the following inside
@@ -108,14 +106,11 @@ Open Noctalia-Shell `Settings > Hooks` and add the following inside
 /usr/share/sddm/themes/noctalia/sync-shell-wallpaper.sh
 ```
 
-Make background.png writable by your user (gets overwritten by the script)
+Set file permissions for background.png (gets overwritten by the script)
 
 ```sh
-sudo chown "$USER" "/usr/share/sddm/themes/noctalia/Assets/background.png"
+sudo chmod 666 "/usr/share/sddm/themes/noctalia/Assets/background.png"
 ```
-
-If the installed theme path is read-only, adjust the writable output path in
-your package or hook setup.
 
 </details>
 

@@ -7,11 +7,10 @@ render_header "🧩 Installing Noctalia-Shell color sync..."
 run_cmd cp "$PROJECT_ROOT/theme.template.conf" $DEST_DIR
 run_cmd mkdir -p "$(dirname "$user_template")"
 run_cmd touch "$user_template"
-run_cmd chown "$SUDO_USER" "$DEST_DIR/theme.conf"
+run_cmd chmod 666 "$DEST_DIR/theme.conf"
 
 run_cmd ini_set $user_template templates.sddm input_path "\"$DEST_DIR/theme.template.conf\""
 run_cmd ini_set $user_template templates.sddm output_path "\"$DEST_DIR/theme.conf\""
 
 run_cmd chown $SUDO_USER $user_template
-render_info "This assumes a mutable install where Noctalia can write $DEST_DIR/theme.conf."
 render_info "Remember to activate user-templates in noctalia-shell and refresh your theme to update sddm!"
