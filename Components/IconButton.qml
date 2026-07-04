@@ -11,7 +11,7 @@ Button {
     property color bgColor: Global.mSurfaceVariant
     property color textColor: Global.mOnSurfaceVariant
     property int fontSize: Global.fontM
-    property real borderRadius: Global.buttonRadius
+    property real borderRadius: Global.buttonBorderRadius
     property string utf8Code: "\uf071"
 
     background: Rectangle {
