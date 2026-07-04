@@ -1,7 +1,6 @@
 import ".."
-import QtQuick 2.15
-import QtQuick.Layouts 1.15
-import SddmComponents 2.0
+import QtQuick
+import QtQuick.Layouts
 
 Rectangle {
     id: root
@@ -68,7 +67,7 @@ Rectangle {
             text: ""
             onAccepted: sddm.login(cachedUsers[userIndex].name, passwordField.text, Global.currentSessionIndex)
             Layout.fillWidth: true
-            Keys.onPressed: {
+            Keys.onPressed: (event) => {
                 if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
                     sddm.login(cachedUsers[userIndex].name, passwordField.text, Global.currentSessionIndex);
                     event.accepted = true;

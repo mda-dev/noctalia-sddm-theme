@@ -1,7 +1,7 @@
 import ".."
-import QtGraphicalEffects 1.15
-import QtQuick 2.15
-import QtQuick.Layouts 1.15
+import QtQuick
+import QtQuick.Effects
+import QtQuick.Layouts
 
 Rectangle {
     // ========= Public API =========
@@ -61,25 +61,29 @@ Rectangle {
                 Layout.alignment: Qt.AlignVCenter
 
                 Text {
-                    height: 20
+                    Layout.fillWidth: true
                     text: "Welcome back, " + userDisplayName + "!"
                     font.family: Global.font
                     font.pixelSize: Global.fontXXL
                     // font.bold: true
                     font.weight: Font.DemiBold
                     color: Global.mOnSurface
+                    elide: Text.ElideRight
+                    maximumLineCount: 1
                 }
 
                 Text {
                     property color baseColor: Global.mSurfaceVariant
 
-                    height: 20
+                    Layout.fillWidth: true
                     text: Qt.formatDate(new Date(), "dddd, MMMM d")
                     font.family: Global.font
                     font.pixelSize: Global.fontXL
                     font.weight: Font.DemiBold
                     color: Global.mPrimary
                     opacity: 0.6
+                    elide: Text.ElideRight
+                    maximumLineCount: 1
                 }
 
             }
@@ -112,15 +116,13 @@ Rectangle {
 
     }
 
-    layer.effect: DropShadow {
-        anchors.fill: userCard
-        source: userCard
-        horizontalOffset: 0
-        verticalOffset: 0
-        radius: 16 * Global.scaleFactor
-        samples: 24
-        color: "#40000000"
-        visible: offset === 0 ? true : wheel.isSelecting
+    layer.effect: MultiEffect {
+        shadowEnabled: true
+        shadowColor: "#40000000"
+        shadowHorizontalOffset: 0
+        shadowVerticalOffset: 0
+        shadowBlur: 1.0
+        blurMax: Math.round(16 * Global.scaleFactor)
     }
 
 }

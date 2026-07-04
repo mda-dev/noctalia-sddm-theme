@@ -1,7 +1,7 @@
 import ".."
-import QtGraphicalEffects 1.12
-import QtQuick 2.15
-import QtQuick.Layouts 1.15
+import QtQuick
+import QtQuick.Effects
+import QtQuick.Layouts
 
 Item {
     id: loginCard
@@ -27,16 +27,15 @@ Item {
         opacity: Global.cardOpacity
         layer.enabled: Global.dropShadows
 
-        layer.effect: DropShadow {
+        layer.effect: MultiEffect {
             id: cardShadow
 
-            anchors.fill: cardBg
-            source: cardBg
-            horizontalOffset: 0
-            verticalOffset: 0
-            radius: 16
-            samples: 24
-            color: "#40000000"
+            shadowEnabled: true
+            shadowColor: "#40000000"
+            shadowHorizontalOffset: 0
+            shadowVerticalOffset: 0
+            shadowBlur: 1.0
+            blurMax: 16
         }
 
     }
