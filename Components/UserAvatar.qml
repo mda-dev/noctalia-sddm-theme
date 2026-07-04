@@ -1,7 +1,6 @@
 import ".."
-import QtGraphicalEffects 1.15
-import QtQuick 2.15
-import SddmComponents 2.0
+import QtQuick
+import QtQuick.Effects
 
 Item {
     id: avatar
@@ -34,6 +33,7 @@ Item {
         anchors.fill: parent
         radius: width / 2
         visible: false
+        layer.enabled: true
     }
 
     Image {
@@ -53,7 +53,8 @@ Item {
         }
         layer.enabled: true
 
-        layer.effect: OpacityMask {
+        layer.effect: MultiEffect {
+            maskEnabled: true
             maskSource: mask
         }
 
@@ -67,7 +68,8 @@ Item {
         visible: avatarImage.status !== Image.Ready
         layer.enabled: true
 
-        layer.effect: OpacityMask {
+        layer.effect: MultiEffect {
+            maskEnabled: true
             maskSource: mask
         }
 

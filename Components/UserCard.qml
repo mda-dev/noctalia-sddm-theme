@@ -1,7 +1,7 @@
 import ".."
-import QtGraphicalEffects 1.15
-import QtQuick 2.15
-import QtQuick.Layouts 1.15
+import QtQuick
+import QtQuick.Effects
+import QtQuick.Layouts
 
 Rectangle {
     // ========= Public API =========
@@ -112,15 +112,13 @@ Rectangle {
 
     }
 
-    layer.effect: DropShadow {
-        anchors.fill: userCard
-        source: userCard
-        horizontalOffset: 0
-        verticalOffset: 0
-        radius: 16 * Global.scaleFactor
-        samples: 24
-        color: "#40000000"
-        visible: offset === 0 ? true : wheel.isSelecting
+    layer.effect: MultiEffect {
+        shadowEnabled: true
+        shadowColor: "#40000000"
+        shadowHorizontalOffset: 0
+        shadowVerticalOffset: 0
+        shadowBlur: 1.0
+        blurMax: Math.round(16 * Global.scaleFactor)
     }
 
 }

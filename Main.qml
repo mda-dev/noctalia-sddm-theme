@@ -1,5 +1,5 @@
-import QtGraphicalEffects 1.12
-import QtQuick 2.15
+import QtQuick
+import QtQuick.Effects
 
 Rectangle {
     id: root
@@ -29,13 +29,13 @@ Rectangle {
         visible: Global.backgroundBlur <= 0
     }
 
-    FastBlur {
+    MultiEffect {
         anchors.fill: parent
         source: wallpaper
-        radius: 20
-        transparentBorder: false
+        blurEnabled: true
+        blur: 1.0
+        blurMax: 32
         visible: Global.backgroundBlur > 0
-        cached: true
     }
 
     UserSelector {

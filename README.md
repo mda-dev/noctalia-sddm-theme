@@ -22,18 +22,14 @@ and [Noctalia Dev](https://noctalia.dev/)
 
 > [!NOTE]
 > Theme Dependencies
-> `qt5-graphicaleffects` and `qt5-quickcontrols2`
+> `qt6-declarative` (provides QtQuick, QtQuick.Controls, QtQuick.Effects) and `qt6-svg` (for `.svg` avatars)
 > Misc Dependencies (installer)
 > `jq` - used for handling .json mutations (wallpaper-sync)
 > `awk` - use for handling .conf mutations (installer)
 
 > [!NOTE]
 > If you are using Wayland you might need
-> to also install `qt5-wayland`
-
-### Current W.I.P
-
-- Migrate from qt5 to qt6
+> to also install `qt6-wayland`
 
 ## Installation
 
@@ -121,7 +117,7 @@ sudo chmod 666 "/usr/share/sddm/themes/noctalia/Assets/background.png"
 ## Test theme installation
 
 ```sh
-sddm-greeter --test-mode --theme /usr/share/sddm/themes/noctalia
+sddm-greeter-qt6 --test-mode --theme /usr/share/sddm/themes/noctalia
 ```
 
 ## Configuration
