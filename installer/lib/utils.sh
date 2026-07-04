@@ -12,6 +12,29 @@ run_cmd() {
   fi
 }
 
+# Resolve a user's home directory from the passwd database (robust against
+# non-standard home locations). Defaults to the invoking (sudo) user.
+user_home() {
+  local u="${1:-$SUDO_USER}"
+  [[ -n "$u" ]] || return 1
+  getent passwd "$u" | cut -d: -f6
+}
+
+# True when we have a real non-root invoking user to act on behalf of.
+has_target_user() {
+  [[ -n "$SUDO_USER" && "$SUDO_USER" != "root" ]]
+}
+
+# Run a command as the invoking (non-root) user, preserving correct ownership
+# for anything created under their home directory.
+run_as_user() {
+  if has_target_user; then
+    sudo -u "$SUDO_USER" "$@"
+  else
+    "$@"
+  fi
+}
+
 ask_yes_no() {
   local prompt="$1"
   while true; do

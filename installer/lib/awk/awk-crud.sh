@@ -4,8 +4,17 @@ _ini_tmp() {
   mktemp "${TMPDIR:-/tmp}/ini.XXXXXX"
 }
 
+# Ensure the target file (and its parent dir) exist so awk can read it.
+_ini_ensure_file() {
+  local file=$1
+  [[ -f "$file" ]] && return 0
+  mkdir -p "$(dirname "$file")" && : >"$file"
+}
+
 ini_get() {
   local file=$1 section=$2 key=$3
+
+  [[ -f "$file" ]] || return 0
 
   awk -v section="$section" -v key="$key" '
     BEGIN { FS="="; in_section=0 }
@@ -31,6 +40,8 @@ ini_get() {
 ini_set() {
   local file=$1 section=$2 key=$3 value=$4
   local tmp=$(_ini_tmp)
+
+  _ini_ensure_file "$file"
 
   awk -v section="$section" -v key="$key" -v value="$value" '
     BEGIN { FS="="; in_section=0; seen_section=0; done=0 }
@@ -74,6 +85,8 @@ ini_del() {
   local file=$1 section=$2 key=$3
   local tmp=$(_ini_tmp)
 
+  [[ -f "$file" ]] || return 0
+
   awk -v section="$section" -v key="$key" '
   BEGIN { FS="="; in_section=0 }
     /^\[.*\]$/ {
@@ -93,6 +106,8 @@ ini_del() {
 ini_create_section() {
   local file=$1 section=$2
   local tmp=$(_ini_tmp)
+
+  _ini_ensure_file "$file"
 
   awk -v section="$section" '
     BEGIN { found=0 }
@@ -114,6 +129,9 @@ ini_create_section() {
 ini_remove_section() {
   local file=$1 section=$2
   local tmp=$(_ini_tmp)
+
+  [[ -f "$file" ]] || return 0
+
   awk -v section="$section" '
     BEGIN { skip=0 }
     /^\[.*\]/ {
