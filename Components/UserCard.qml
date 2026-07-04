@@ -61,25 +61,29 @@ Rectangle {
                 Layout.alignment: Qt.AlignVCenter
 
                 Text {
-                    height: 20
+                    Layout.fillWidth: true
                     text: "Welcome back, " + userDisplayName + "!"
                     font.family: Global.font
                     font.pixelSize: Global.fontXXL
                     // font.bold: true
                     font.weight: Font.DemiBold
                     color: Global.mOnSurface
+                    elide: Text.ElideRight
+                    maximumLineCount: 1
                 }
 
                 Text {
                     property color baseColor: Global.mSurfaceVariant
 
-                    height: 20
+                    Layout.fillWidth: true
                     text: Qt.formatDate(new Date(), "dddd, MMMM d")
                     font.family: Global.font
                     font.pixelSize: Global.fontXL
                     font.weight: Font.DemiBold
                     color: Global.mPrimary
                     opacity: 0.6
+                    elide: Text.ElideRight
+                    maximumLineCount: 1
                 }
 
             }
